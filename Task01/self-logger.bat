@@ -1,37 +1,36 @@
 @echo off
-chcp 65001 >nul
+setlocal
 
-set DB_NAME=logger.db
-set TABLE_NAME=execution_log
-set USERNAME=%USERNAME%
-set CURRENT_DATETIME=%date% %time%
+set DB=self_logger.db
+set USER=%USERNAME%
 
+:: Формируем дату и время
+for /f "tokens=1-2 delims= " %%a in ('date /t') do set DATE=%%a
+for /f "tokens=1" %%a in ('time /t') do set TIME=%%a
+set DATETIME=%DATE% %TIME%
 
-if not exist "%DB_NAME%" (
-    echo Creating new database and table...
-    sqlite3 "%DB_NAME%" "CREATE TABLE %TABLE_NAME% (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, execution_date TEXT);"
+:: Путь к sqlite3.exe (без кавычек в переменной!)
+set SQLITE=C:\sqlite\sqlite3.exe
+
+:: Если базы нет — создаём таблицу
+if not exist %DB% (
+    "%SQLITE%" %DB% "CREATE TABLE logs(user TEXT, run_date TEXT);"
 )
 
+:: Записываем запуск
+"%SQLITE%" %DB% "INSERT INTO logs(user, run_date) VALUES('%USER%', '%DATETIME%');"
 
-sqlite3 "%DB_NAME%" "INSERT INTO %TABLE_NAME% (username, execution_date) VALUES ('%USERNAME%', '%CURRENT_DATETIME%');"
+:: Считаем статистику
+for /f %%a in ('%SQLITE% %DB% "SELECT COUNT(*) FROM logs;"') do set COUNT=%%a
+for /f %%a in ('%SQLITE% %DB% "SELECT run_date FROM logs ORDER BY run_date ASC LIMIT 1;"') do set FIRST_RUN=%%a
 
-
-for /f "tokens=*" %%a in ('sqlite3 "%DB_NAME%" "SELECT COUNT(*) FROM %TABLE_NAME%;"') do set /a COUNT=%%a
-
-
-for /f "tokens=*" %%b in ('sqlite3 "%DB_NAME%" "SELECT execution_date FROM %TABLE_NAME% ORDER BY id ASC LIMIT 1;"') do set FIRST_RUN=%%b
-
-echo.
-echo Имя программы: %~nx0
+:: Вывод информации
+echo Имя программы: self-logger.bat
 echo Количество запусков: %COUNT%
 echo Первый запуск: %FIRST_RUN%
 echo ---------------------------------------------
 echo User      ^| Date
 echo ---------------------------------------------
+"%SQLITE%" -header -column %DB% "SELECT user, run_date FROM logs;"
 
-
-sqlite3 "%DB_NAME%" "SELECT username, execution_date FROM %TABLE_NAME% ORDER BY id DESC;"
-
-echo ---------------------------------------------
-echo.
-pause
+endlocal
