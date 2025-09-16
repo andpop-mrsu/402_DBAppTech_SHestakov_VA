@@ -66,5 +66,8 @@ composer dump-autoload -o
 
 ### 4. Запустить игру:
 ```bash
+
+### Проект на Packagist
+https://packagist.org/packages/baklaniso/cold-hot
 ./bin/cold-hot
 ```
