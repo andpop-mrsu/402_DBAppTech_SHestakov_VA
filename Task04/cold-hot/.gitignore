@@ -1,0 +1,4 @@
+/vendor/
+cold-hot.db
+.DS_Store
+*.log
