@@ -1,5 +1,5 @@
 {
-  "name": "dimakelmyashkin/cold-hot",
+  "name": "slava/cold-hot",
   "require": {
     "wp-cli/php-cli-tools": "^0.12.5"
   },
@@ -12,7 +12,7 @@
     }
   },
   "bin": [
-    "cold-hot/bin/cold-hot"
+    "bin/cold-hot"
   ],
   "scripts": {
     "phpcs": "vendor/bin/phpcs --standard=PSR12 src bin",
