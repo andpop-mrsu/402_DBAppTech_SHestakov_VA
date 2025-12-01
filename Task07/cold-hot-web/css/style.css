@@ -1,0 +1,326 @@
+/* --- Общий стиль --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: linear-gradient(135deg, #0d1117, #1a1a2e);
+  color: #e0e0e0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* --- Заголовок --- */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  color: #00e5ff;
+  text-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+}
+
+/* --- Экраны --- */
+.screen {
+  display: none;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  padding: 30px;
+  animation: fadeIn 0.3s ease;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* --- Макет приветственного экрана --- */
+.welcome-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* --- Левая часть: правила --- */
+.rules-panel {
+  flex: 1;
+  min-width: 300px;
+  background: rgba(0, 229, 255, 0.05);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+}
+
+.rules-panel h2 {
+  color: #00e5ff;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.rules-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.rule-item:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.rule-item span {
+  font-size: 1.6rem;
+}
+
+.rule-item.cold p b { color: #42a5f5; }
+.rule-item.warm p b { color: #ffb74d; }
+.rule-item.hot p b { color: #ef5350; }
+
+.tip {
+  text-align: center;
+  margin-top: 20px;
+  color: #b3e5fc;
+  font-style: italic;
+}
+
+/* --- Правая часть: форма --- */
+.start-panel {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.start-panel h2 {
+  color: #ff6b6b;
+  margin-bottom: 20px;
+}
+
+.player-form input {
+  width: 80%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.player-form input:focus {
+  outline: none;
+  border-color: #ff6b6b;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+}
+
+/* --- Кнопки --- */
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff4081);
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
+}
+
+.start-btn:hover {
+  box-shadow: 0 0 25px rgba(255, 107, 107, 0.6);
+}
+
+.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Игра --- */
+.hud {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  color: #b3e5fc;
+}
+
+.game-panel {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#guessInput {
+  flex: 1;
+  font-size: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.action-btn {
+  background: linear-gradient(135deg, #42a5f5, #00e5ff);
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+}
+
+/* --- История игр --- */
+.games-list {
+  display: grid;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.game-item {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.game-item.won { border-left-color: #00e676; }
+.game-item.lost { border-left-color: #ff5252; }
+
+.game-item:hover {
+  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Модалки --- */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.hidden { display: none; }
+
+.modal-content {
+  background: #101820;
+  padding: 25px;
+  border-radius: 15px;
+  text-align: center;
+  width: 320px;
+  color: #fff;
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+}
+
+.modal-content.success { border: 2px solid #00e676; }
+.modal-content.fail { border: 2px solid #ff5252; }
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* --- Анимации --- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* --- Подсказки (Холодно / Тепло / Горячо) --- */
+.hint {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 3px;
+  transition: all 0.3s ease;
+  animation: hintAppear 0.4s ease;
+}
+
+.hint.cold {
+  background: rgba(33, 150, 243, 0.15);
+  border: 2px solid #2196f3;
+  color: #bbdefb;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.6);
+}
+
+.hint.warm {
+  background: rgba(255, 193, 7, 0.15);
+  border: 2px solid #ffca28;
+  color: #fff3e0;
+  box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+}
+
+.hint.hot {
+  background: rgba(244, 67, 54, 0.15);
+  border: 2px solid #f44336;
+  color: #ffcdd2;
+  box-shadow: 0 0 15px rgba(244, 67, 54, 0.8);
+  animation: hotPulse 1.2s infinite ease-in-out;
+}
+
+/* --- Анимации для подсказок --- */
+@keyframes hintAppear {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes hotPulse {
+  0% {
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(244, 67, 54, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(244, 67, 54, 0.6);
+  }
+}
