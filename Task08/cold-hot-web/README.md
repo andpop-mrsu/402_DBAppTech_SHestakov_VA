@@ -45,6 +45,7 @@
 Игра размещена на Гитхаб по адресу: [https://baklaniso.github.io/cold-hot-web](https://baklaniso.github.io/cold-hot-web/)
 или же вы можете установить локально:
 1. Скачайте файлы проекта с https://github.com/Baklaniso/cold-hot-web
-2. Откройте файл `index.html` в веб-браузере
-3. Или разместите файлы на веб-сервере
+2. Перейдите в каталог проекта: cd Task08
+3. Запустите встроенный веб-сервер PHP: php -S localhost:3000 -t public
+4. Откройте в браузере: http://localhost:3000/
 
