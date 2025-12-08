@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Холодно — Горячо</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <header class="header">
+      <h1> Холодно — Горячо </h1>
+    </header>
+
+    <main class="main">
+      <!-- Приветственный экран -->
+      <section id="welcomeScreen" class="screen active">
+        <div class="welcome-layout">
+          <div class="rules-panel">
+            <h2>📘 Правила игры</h2>
+            <div class="rules-box">
+              <div class="rule-item cold">
+                <span>🧊</span>
+                <p><b>Холодно</b> — цифры нет в числе</p>
+              </div>
+              <div class="rule-item warm">
+                <span>🔥</span>
+                <p><b>Тепло</b> — цифра есть, но не на своём месте</p>
+              </div>
+              <div class="rule-item hot">
+                <span>💥</span>
+                <p><b>Горячо</b> — цифра стоит на своём месте</p>
+              </div>
+            </div>
+            <p class="tip">У вас 10 попыток, чтобы угадать трёхзначное число с уникальными цифрами.</p>
+          </div>
+
+          <div class="start-panel">
+            <h2>Начни новую игру</h2>
+            <form id="playerForm" class="player-form">
+              <input type="text" id="playerName" placeholder="Введите ваше имя" required>
+              <button type="submit" class="btn start-btn">Начать игру</button>
+            </form>
+
+            <div class="menu-buttons">
+              <button id="listGamesBtn" class="btn secondary">Список игр</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Экран игры -->
+      <section id="gameScreen" class="screen">
+        <div class="hud">
+          <div class="player-info"> 👤 <b id="currentPlayer"></b> </div>
+          <div class="attempts-info">
+            <span>Попыток: <b id="attemptsCount">0</b>/10</span>
+            <span>Число: <b id="secretNumber">???</b></span>
+          </div>
+        </div>
+
+        <div class="game-panel">
+          <input type="text" id="guessInput" maxlength="3" placeholder="Введите 3 цифры">
+          <button id="submitGuess" class="btn action-btn">Проверить</button>
+        </div>
+
+        <div id="attemptsList" class="attempts-list"></div>
+
+        <div class="bottom-menu">
+          <button id="newGameBtn" class="btn secondary">🏠 В меню</button>
+        </div>
+      </section>
+
+      <!-- Список игр -->
+      <section id="listScreen" class="screen">
+        <h2>История игр</h2>
+        <div id="gamesList" class="games-list"></div>
+        <button id="backFromList" class="btn secondary">⬅ Назад</button>
+      </section>
+    </main>
+
+    <!-- Модалки -->
+    <div id="winModal" class="modal hidden">
+      <div class="modal-content success">
+        <h2>Победа!</h2>
+        <p>Вы угадали число <b id="winSecretNumber"></b> за <b id="winAttemptsCount"></b> попыток!</p>
+        <div class="modal-actions">
+          <button id="newGameAfterWin" class="btn start-btn">Новая игра</button>
+          <button id="closeWinModal" class="btn secondary">Закрыть</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="lossModal" class="modal hidden">
+      <div class="modal-content fail">
+        <h2>Поражение</h2>
+        <p>Загаданное число: <b id="lossSecretNumber"></b></p>
+        <p>Попыток использовано: <b id="lossAttemptsCount"></b>/10</p>
+        <div class="modal-actions">
+          <button id="newGameAfterLoss" class="btn start-btn">Попробовать снова</button>
+          <button id="closeLossModal" class="btn secondary">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS-модули (в порядке зависимости) -->
+  <script src="/js/gameModel.js"></script>
+  <script src="/js/gameView.js"></script>
+  <script src="/js/gameController.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
